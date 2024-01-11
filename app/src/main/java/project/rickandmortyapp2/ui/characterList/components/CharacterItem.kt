@@ -42,12 +42,12 @@ fun CharacterItem(
                 text = item.name,
                 style = MaterialTheme.typography.displayMedium
             )
-            //CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.surface) {
                 Text(
                     text = item.specie,
                     style = MaterialTheme.typography.displaySmall
                 )
-            //}
+            }
         }
         Divider(modifier = Modifier.padding(top = 10.dp))
     }

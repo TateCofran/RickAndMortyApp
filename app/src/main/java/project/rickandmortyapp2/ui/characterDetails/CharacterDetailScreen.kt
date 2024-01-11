@@ -44,7 +44,7 @@ fun DetailContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Cyan)
+            .background(Color.Black)
     ) {
         Column {
             Header(
@@ -72,7 +72,7 @@ fun Header(
 ) {
     Column(
         modifier = modifier
-            .background(Color(0xFF1C9696)),
+            .background(Color.Black),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -91,7 +91,7 @@ fun Body(character: Character?) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Cyan)
+            .background(Color.Gray)
     ) {
         DetailProperty(label = stringResource(id = R.string.specie), value = character?.species)
         DetailProperty(label = stringResource(id = R.string.status), value = character?.status)

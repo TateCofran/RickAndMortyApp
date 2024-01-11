@@ -8,14 +8,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -36,7 +31,6 @@ import kotlinx.coroutines.flow.collectLatest
 
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharactersScreen(
     onItemClick: (Int) -> Unit,
@@ -56,24 +50,19 @@ fun CharactersScreen(
         }
     }
 
-    // Material 3 app bar and navigation
-    Column {
-        TopAppBar(
-            title = { Text(stringResource(id = R.string.characters_title)) },
-            navigationIcon = {
-                IconButton(onClick = { /* Back navigation */ }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
-                }
-            }
-        )
+    Column(
+        modifier = Modifier.fillMaxSize() // Applied to ensure bottom bar positioning
+    ) {
+        // Material 3 top app bar
         CharactersTopBar()
-        NavigationBar(
-            containerColor = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        ) {
-            // Navigation items
-        }
 
+        // Bottom navigation using Surface for consistency
+        CharactersBottomBar(
+            showPrevious = state.showPrevious,
+            showNext = state.showNext,
+            onPreviousPress = { viewModel.getCharacters(false) },
+            onNextPress = { viewModel.getCharacters(true) }
+        )
         // Main content within a Surface
         Surface(
             color = MaterialTheme.colorScheme.surface,
@@ -88,13 +77,8 @@ fun CharactersScreen(
 
             // Display Snackbar within the Surface
             SnackbarHost(hostState = snackbarHostState)
+
         }
-        CharactersBottomBar(
-            showPrevious = state.showPrevious,
-            showNext = state.showNext,
-            onPreviousPress = { viewModel.getCharacters(false) },
-            onNextPress = { viewModel.getCharacters(true) }
-        )
     }
 }
 @OptIn(ExperimentalMaterial3Api::class)
